@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ./src/backend
+    container_name: smartdoc_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - DATA_PATH=/app/data
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build: ./src/frontend/SmartDoc
+    container_name: smartdoc_frontend
+    ports:
+      - "80:4200"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000
+    volumes:
+      - ./src/frontend/SmartDoc:/app
+      - /app/node_modules
+    command: ./node_modules/.bin/ng serve --host 0.0.0.0 
+    

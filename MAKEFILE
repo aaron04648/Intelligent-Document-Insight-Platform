@@ -1,0 +1,16 @@
+help:
+	@echo "  make up       - Startet die ganze App (Docker Build & Up)"
+	@echo "  make down     - Stoppt alle Docker Container"
+	@echo "  make frontend - Startet nur Angular lokal (ng serve)"
+	@echo "  make test     - Führt Pytest im laufenden Docker-Container aus"
+	@echo "  make logs     - Zeigt Live-Logs der Container an"
+start: 
+	docker compose up --build -d
+stop: 
+	docker compose down	
+frontend:
+	cd frontend && ng serve
+test:
+	docker exec -it smartdoc_sorter_backend_1 pytest
+logs:
+	docker compose logs -f
