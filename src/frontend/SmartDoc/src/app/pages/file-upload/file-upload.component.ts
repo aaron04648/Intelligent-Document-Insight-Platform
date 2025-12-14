@@ -15,7 +15,6 @@ export class FileUploadComponent {
   isDragOver = false;
   private cdr = inject(ChangeDetectorRef);
 
-  // Wird aufgerufen, wenn Datei über Input ausgewählt wird
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -23,7 +22,6 @@ export class FileUploadComponent {
     }
   }
 
-  // Drag & Drop Events
   onDragOver(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
@@ -46,11 +44,13 @@ export class FileUploadComponent {
     }
   }
 
-  // Verarbeitet die Datei und erstellt Vorschau
   handleFile(file: File): void {
-    // Validierung (optional): Nur Bilder zulassen
-    if (!file.type.match(/image\/*/)) {
-      alert('Only images are allowed!');
+    const validZipTypes = ['application/zip', 'application/x-zip-compressed', 'application/x-zip'];
+
+    const isValidType = validZipTypes.includes(file.type) || file.name.endsWith('.zip');
+
+    if (!isValidType) {
+      alert('ZIP files only are supported.');
       return;
     }
 
