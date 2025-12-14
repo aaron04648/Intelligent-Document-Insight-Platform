@@ -1,9 +1,14 @@
+.PHONY: help start stop frontend test logs load-data
 help:
 	@echo "  make up       - Startet die ganze App (Docker Build & Up)"
 	@echo "  make down     - Stoppt alle Docker Container"
 	@echo "  make frontend - Startet nur Angular lokal (ng serve)"
 	@echo "  make test     - Führt Pytest im laufenden Docker-Container aus"
 	@echo "  make logs     - Zeigt Live-Logs der Container an"
+install:
+	pip3 install -r src/backend/requirements.txt
+load-data:
+	export PYTHONPATH=$$PYTHONPATH:. && python3 -c "from src.backend.kaggle_api import load_kaggle_data; load_kaggle_data()"
 start: 
 	docker compose up --build -d
 stop: 
