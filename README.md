@@ -16,7 +16,7 @@ Unlike generic API wrappers, this project features a **proprietary deep learning
 
 The core of this application is a custom CNN trained on a subset of the **RVL-CDIP** dataset.
 
-* **Framework:** TensorFlow / Keras
+* **Framework:** TensorFlow 
 * **Architecture:** Sequential CNN (3 Convolutional Layers + MaxPooling, Flatten, Dense Dropout, Softmax Output).
 * **Input:** Grayscale document images resized to 224x224.
 * **Performance:** Achieved ~92% accuracy on the validation set.
